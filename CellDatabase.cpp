@@ -3,6 +3,7 @@
 #include <sstream>
 #include "CellDatabase.h"
 #include "CellData.h"
+#include "LinkedList.h"
 #include <fstream>
 #include <vector>
 
@@ -32,18 +33,19 @@ void CellDatabase::loadData(const string& filename)  {
                 v.push_back(substr); // push into vector for easy 1,2,3
             }
 
-            if ( v.at(0) != "fov" ) { // If not first line
+            if ( v.at(1) != "fov" ) { // If not first line
                 CellData curr; // ID, fov,volume,center_x,center_y,min_x,max_x,min_y,max_y
-                curr.id = stof(v.at(0));
-                curr.fov = stof(v.at(1));
-                curr.volume = stof(v.at(2));
-                curr.center_x = stof(v.at(3));
-                curr.center_y = stof(v.at(4));
-                curr.min_x = stof(v.at(5));
-                curr.min_y = stof(v.at(6));
-                curr.max_x = stof(v.at(7));
-                curr.max_y = stof(v.at(8));
-                std::cout << "New node: " << curr.id << std::endl;
+                curr.id = v.at(0);
+                curr.fov = stoi(v.at(1));
+                curr.volume = stod(v.at(2));
+                curr.center_x = stod(v.at(3));
+                curr.center_y = stod(v.at(4));
+                curr.min_x = stod(v.at(5));
+                curr.min_y = stod(v.at(6));
+                curr.max_x = stod(v.at(7));
+                curr.max_y = stod(v.at(8));
+                records.insert(curr.id, curr.fov, curr.volume, curr.center_x, curr.center_y, curr.min_x, curr.min_y, curr.max_x, curr.max_y);
+                //std::cout << "New node: " << curr.id << std::endl;
             }
         }
     } else {

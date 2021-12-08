@@ -3,6 +3,7 @@
 #include <sstream>
 #include "LinkedList.h"
 #include "Node.h"
+#include "CellData.h"
 #include <cmath>
 
 using std::cout;
@@ -10,15 +11,22 @@ using std::string;
 using std::ostream;
 
 LinkedList::LinkedList() {
-	  // Implement this function
+    // Implement this function
 }
 
 LinkedList::~LinkedList() {
-	  // Implement this function
+    Node *tmp = this->head;
+    Node *temp;
+    while(tmp) {
+        temp = tmp->next;
+        delete tmp;
+        tmp = temp;
+    }
+    tmp = temp = NULL;
 }
 
 LinkedList::LinkedList(const LinkedList& source) {
-    // Implement this function
+    
 }
 
 LinkedList& LinkedList::operator=(const LinkedList& source) 
@@ -28,11 +36,21 @@ LinkedList& LinkedList::operator=(const LinkedList& source)
 }
 
 void LinkedList::insert(std::string id, int fov, double volume, double center_x, double center_y, double min_x, double max_x, double min_y, double max_y) {
-    // Implement this function
+    /*CellData curr; // ID, fov,volume,center_x,center_y,min_x,max_x,min_y,max_y
+    curr.id = id;
+    curr.fov = fov;
+    curr.volume = volume;
+    curr.center_x = center_x;
+    curr.center_y = center_y;
+    curr.min_x = min_x;
+    curr.min_y = min_y;
+    curr.max_x = max_x;
+    curr.max_y = max_y;*/
+    Node* newNode = new Node(id,fov,volume,center_x,center_y,min_x,max_x,min_y,max_y);
+    this->insert(newNode)''
 }
 
-void LinkedList::remove(std::string id, int fov, double volume, double center_x, double center_y, double min_x, double max_x, double min_y, double max_y)
-{
+void LinkedList::remove(std::string id, int fov, double volume, double center_x, double center_y, double min_x, double max_x, double min_y, double max_y) {
     // Implement this function
 }
 
