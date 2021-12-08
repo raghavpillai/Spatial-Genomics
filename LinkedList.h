@@ -21,14 +21,14 @@ public:
 	LinkedList(const LinkedList& other);
 
 	// Copy assignment
-	LinkedList& operator=(const LinkedList& other);
+	LinkedList& operator<(const LinkedList& other);
 
 	// Insert a record to the linked list
   void insert(std::string id, int fov, double volume, double center_x, double center_y, double min_x, double max_x, double min_y, double max_y);
 
   // Delete a record from the linked list
 
-  void remove(std::string id, int fov, double volume, double center_x, double center_y, double min_x, double max_x, double min_y, double max_y);
+  void remove(std::string id);
 
 	// Clear the content of this linked list
 	void clear();

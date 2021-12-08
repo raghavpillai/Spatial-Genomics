@@ -65,5 +65,36 @@ void CellDatabase::outputData(const string& filename) {
 }
 
 void CellDatabase::performQuery(const string& filename) {
-    // Implement this function
+    std::string line;
+    std::ifstream inFile(filename);
+    std::ofstream outFile("queries.data");
+
+    if ( inFile.is_open() && outFile.is_open() ){
+        while ( getline (inFile,line) ){
+            std::stringstream ss(line);
+            std::vector<std::string> v;
+
+            while ( ss.good() ) {
+                std::string substr;
+                getline(ss, substr, ' '); // break by space
+                v.push_back(substr); 
+            }
+
+            if ( v.at(0) == "AVG" ) { 
+                double ret = this->records.average( stoi(v.at(1)) );
+                outFile << "AVG " << v.at(1) << ": " << std::to_string(ret) << "\n";
+            }else if ( v.at(0) == "VAR" ) { 
+                double ret = this->records.variance( stoi(v.at(1)) );
+                outFile << "VAR " << v.at(1) << ": " << std::to_string(ret) << "\n";
+            }else if ( v.at(0) == "COUNT" ) { 
+                double ret = this->records.countN( stoi(v.at(1)) );
+                outFile << "COUNT " << v.at(1) << ": " << std::to_string(ret) << "\n";
+            }else if ( v.at(0) == "OUTLIER" ) { 
+                std::string out = this->records.outliers( stoi(v.at(1)),stoi(v.at(2)),stoi(v.at(3)) );
+                outFile << "OUTLIER " << v.at(1) << " " << v.at(2) << " " << v.at(3) << ": " << out << "\n";
+            }
+        }
+    } else {
+        std::cout << "Error, unable to open" << std::endl;
+    }
 }
